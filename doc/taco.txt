@@ -1,0 +1,75 @@
+*taco.txt*    Tiny tab-completer for Vim.
+
+
+Help on using vim-taco                                   *taco*
+
+1. Introduction                         |taco-intro|
+2. Configuration                        |taco-configuration|
+
+==============================================================================
+ 1. INTRODUCTION                                         *taco-intro*
+
+taco is a minimalistic Vim plugin that lets the user complete the currently typed text by hitting the <tab> key.
+
+It uses Vim's built-in |ins-completion| methods depending on the context.
+The completion methods, the order and the context in which they are used are
+fully customizable.
+
+If a file-path is completed to a directory name, ending in '/' (or '\' on MS Windows) then the completion can be reiterated by hitting this delimiter, that is, '\' (or '\' on MS Windows).
+
+==============================================================================
+2. CONFIGURATION                                 *taco-configuration*
+
+There are the variables :
+
+|'g:vim_completions'|           = global dictionary of completion methods
+|'b:taco_completions'|           = buffer-local variant of g:vim_completions
+
+------------------------------------------------------------------------------
+                                                         *'g:taco_completions'*
+
+Configures, by 'rank', the order and, by 'pattern', context in which one of the following completion methods is used after the |<tab>| key is hit:
+
+1. File Path   completion                     (|i_Ctrl-X_Ctrl-F|)
+2. Omni        completion                     (|i_Ctrl-X_Ctrl-O|)
+3. User        completion                     (|i_Ctrl-X_Ctrl-O|)
+4. Line        completion                     (|i_Ctrl-X_Ctrl-O|)
+5. Vim         completion                     (|i_Ctrl-X_Ctrl-O|)
+6. Spell Check completion                     (|i_Ctrl-X_Ctrl-O|)
+7. Generic     completion                     (|i_Ctrl-N|)
+
+and which defaults to
+>
+  g:taco_completions.file.rank     = 10
+  g:taco_completions.omni.rank     = 20
+  g:taco_completions.user.rank     = 30
+  g:taco_completions.line.rank     = 40
+  g:taco_completions.spell.rank    = 50
+  g:taco_completions.vim.rank      = 60
+  g:taco_completions.gen.rank      = 99
+
+  g:taco_completions.file.pattern  = '\v'.(has('win32') ? '\f\\' : '\/').'\f*$'
+  g:taco_completions.omni.pattern  = '\m\<\v\k+(\.|->|::)\k*$'
+  g:taco_completions.user.pattern  = 0
+  g:taco_completions.line.pattern  = 0
+  g:taco_completions.spell.pattern = 0
+  g:taco_completions.vim.pattern   = 0
+  g:taco_completions.gen.pattern   = '\m\<\v\k+$'
+<
+
+When none of the above completions above get any results,
+you can press Tab again to force Vim's generic keyword completion.
+
+                                                         *'b:taco_completions'*
+
+Configures buffer-locally the order and context in which one of the above
+completion methods is used after the |<tab>| key is hit. It is best set by a
+FileType autocmd such as:
+>
+    autocmd FileType vim let b:taco_completions.vim.rank=11 |
+                       \ let b:taco_completions.vim.pattern = '\v\k+$'
+<
+------------------------------------------------------------------------------
+
+Template From: https://github.com/dahu/Area-41/
+vim:tw=78:et:ft=help:norl:
