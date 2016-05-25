@@ -87,11 +87,11 @@ augroup VCM
   if v:version > 703 || v:version == 703 && has('patch598')
     autocmd CompleteDone * let b:taco_completion_tried = 0
   endif
-    autocmd BufWinEnter,FileType *     if !exists('b:taco_completions') |
-                                     \   let b:taco_completions = deepcopy(g:taco_completions) |
-                                     \ endif
-    autocmd VimEnter *
-  \ autocmd BufWinEnter,FileType * call s:unsetUndefinedCompletions()
+  autocmd VimEnter,BufWinEnter,FileType *     if !exists('b:taco_completions') |
+                                   \   let b:taco_completions = deepcopy(g:taco_completions) |
+                                   \ endif
+  autocmd VimEnter *
+\ autocmd BufWinEnter,FileType * call s:unsetUndefinedCompletions()
 augroup END
 
 inoremap <expr> <plug>vim_completes_me_forward  <sid>complete(0)
