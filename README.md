@@ -22,16 +22,17 @@ There are the variables :
 'b:taco_completions'           = buffer-local variant of g:vim_completions
 ```
 ------------------------------------------------------------------------------
-                                                         *'g:taco_completions'*
+
+### g:taco_completions
 
 Configures, by 'rank', the order and, by 'pattern', context in which one of the following completion methods is used after the |<tab>| key is hit:
 
 1. File Path   completion                     (|i_Ctrl-X_Ctrl-F|)
 2. Omni        completion                     (|i_Ctrl-X_Ctrl-O|)
-3. User        completion                     (|i_Ctrl-X_Ctrl-O|)
-4. Line        completion                     (|i_Ctrl-X_Ctrl-O|)
-5. Vim         completion                     (|i_Ctrl-X_Ctrl-O|)
-6. Spell Check completion                     (|i_Ctrl-X_Ctrl-O|)
+3. User        completion                     (|i_Ctrl-X_Ctrl-U|)
+4. Line        completion                     (|i_Ctrl-X_Ctrl-L|)
+5. Vim         completion                     (|i_Ctrl-X_Ctrl-V|)
+6. Spell Check completion                     (|i_Ctrl-X_Ctrl-S|)
 7. Generic     completion                     (|i_Ctrl-N|)
 
 and which defaults to
@@ -54,11 +55,10 @@ and which defaults to
   g:taco_completions.gen.pattern   = '\m\<\v\k+$'
 ```
 
-
 When none of the above completions above get any results,
 you can press Tab again to force Vim's generic keyword completion.
 
-                                                         *'b:taco_completions'*
+### b:taco_completions
 
 Configures buffer-locally the order and context in which one of the above
 completion methods is used after the |<tab>| key is hit. It is best set by a
@@ -69,9 +69,7 @@ FileType autocmd such as:
                        \ let b:taco_completions.vim.pattern = '\v\k+$'
 ```
 
-
-
 ## Thanks
-* to [ajh17](https://github.com/ajh17) whose plug-in [VimCompletesMe](https://github.com/ajh17/VimCompletesMe)
-  inspired vim-taco.
+
+* to [ajh17](https://github.com/ajh17) whose plug-in [VimCompletesMe](https://github.com/ajh17/VimCompletesMe) vim-taco origins from.
 
